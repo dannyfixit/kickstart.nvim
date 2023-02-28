@@ -69,7 +69,8 @@ require('lazy').setup({
   'vimwiki/vimwiki',
   -- Git related plugins
   'tpope/vim-fugitive',
-
+  'junegunn/gv.vim',
+  'lewis6991/gitsigns.nvim',
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
 
