@@ -3,6 +3,10 @@ return {
   requires = {
     'nvim-tree/nvim-web-devicons', -- optional, for file icons
   },
+  opts = {
+
+
+  },
   tag = 'nightly', -- optional, updated every week. (see issue #1193)
   config = function()
 
@@ -15,25 +19,25 @@ return {
     vim.opt.termguicolors = true
 
     -- empty setup using defaults
-    require("nvim-tree").setup()
+    -- require("nvim-tree").setup()
 
     -- OR setup with some options
     require("nvim-tree").setup({
+       renderer = {
+        group_empty = true,
+      },
+      filters = {
+        dotfiles = true,
+      },
       sort_by = "case_sensitive",
       view = {
       width = 30,
-      mappings = {
+     mappings = {
         list = {
           { key = "u", action = "dir_up" },
         },
       },
     },
-  renderer = {
-    group_empty = true,
-  },
-  filters = {
-    dotfiles = true,
-  },
 })
   end;
 
