@@ -14,3 +14,9 @@ vim.keymap.set('n', '<C-h>', '<C-w>h')
 vim.keymap.set('n', '<C-l>', '<C-w>l')
 -- nvim0tree
 vim.keymap.set('n', '<leader>b', ':NvimTreeToggle<CR>')
+
+vim.keymap.set('n', '<C-b>', '<C-b>zz<CR>')
+vim.keymap.set('n', '<C-f>', '<C-f>zz<CR>')
+
+vim.keymap.set('i', 'jj', '<Esc>')
+vim.keymap.set('n', '<leader>ss', ':setlocal spell spelllang=en_gb<CR>')
