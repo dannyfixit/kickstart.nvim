@@ -9,7 +9,7 @@
 
 --  See `:help 'clipboard'`
 -- vim.o.clipboard = 'unnamed'
--- vim.o.clipboard = 'unnamedplus'
+vim.o.clipboard = 'unnamedplus'
 -- set up clipboard 
 
 
