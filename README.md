@@ -64,6 +64,9 @@ This will automatically install `nvim-autopairs` and enable it on startup. For m
 In the file: `lua/custom/plugins/filetree.lua`, add:
 
 ```lua
+-- Unless you are still migrating, remove the deprecated commands from v1.x
+vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+
 return {
   "nvim-neo-tree/neo-tree.nvim",
   version = "*",
@@ -73,15 +76,12 @@ return {
     "MunifTanjim/nui.nvim",
   },
   config = function ()
-    -- Unless you are still migrating, remove the deprecated commands from v1.x
-    vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
-
     require('neo-tree').setup {}
   end,
 }
 ```
 
-This will install the tree plugin and add the command `:NeoTree` for you. You can explore the documentation at [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim) for more information.
+This will install the tree plugin and add the command `:Neotree` for you. You can explore the documentation at [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim) for more information.
 
 #### Example: Adding a file to change default options
 
@@ -118,13 +118,13 @@ Each PR, especially those which increase the line count, should have a descripti
 
 Installation may require installing build tools, and updating the run command for `telescope-fzf-native`
 
-See `telescope-fzf-native` documention for [more details](https://github.com/nvim-telescope/telescope-fzf-native.nvim#installation)
+See `telescope-fzf-native` documentation for [more details](https://github.com/nvim-telescope/telescope-fzf-native.nvim#installation)
 
 This requires:
 
 - Install CMake, and the Microsoft C++ Build Tools on Windows
 
 ```lua
-use {'nvim-telescope/telescope-fzf-native.nvim', run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+{'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
 ```
 
