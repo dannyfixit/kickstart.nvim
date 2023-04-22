@@ -1,6 +1,24 @@
+-- a = add new file
+-- f = rename file
+-- d = deleat
+-- c = copy
+-- c = cut
+-- p - past
+-- y - copy filenane
+-- Y - copy relative filenane
+-- H - toggle dot filters
+-- R - refresh list
+-- - - dir updated
+-- s - open file with system
+-- f - find file
+-- Ctr + k - info
+-- g + ? - help
+-- q quit exploring
+
+
 return {
   'nvim-tree/nvim-tree.lua',
-  dependencies = {
+  requires = {
      'nvim-tree/nvim-web-devicons', -- optional, for file icon,
   },
   opts = {

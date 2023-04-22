@@ -66,12 +66,12 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: First, some plugins that don't require any configuration
 
-  'vimwiki/vimwiki',
+  -- 'vimwiki/vimwiki',
   -- Git related plugins
-  'tpope/vim-fugitive',
+  --  'tpope/vim-fugitive',
 
   -- Detect tabstop and shiftwidth automatically
-  'tpope/vim-sleuth',
+  --  'tpope/vim-sleuth',
 
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
@@ -117,6 +117,7 @@ require('lazy').setup({
     priority = 1000,
     config = function()
       vim.cmd.colorscheme 'onedark'
+     -- vim.g.onedark_config.setup true
     end,
   },
 
@@ -286,7 +287,7 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'lua', 'python', 'rust', 'tsx', 'typescript', 'help', 'vim', 'vimdoc', 'php' },
+  ensure_installed = { 'c', 'cpp', 'lua', 'python', 'rust', 'tsx', 'typescript', 'help', 'vim', 'php' },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = true,
