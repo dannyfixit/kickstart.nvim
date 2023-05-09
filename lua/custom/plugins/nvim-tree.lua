@@ -45,12 +45,12 @@ return {
             filters = {
                 dotfiles = true,
             },
-            filesystem = {
-                filters = {
-                    respect_gitignore = true,
-                    gitignore_treatmente = 'symbol' -- can be 'hidden' or 'symbol'
-                }
-            },
+            -- filesystem = {
+            --     filters = {
+            --         respect_gitignore = true,
+            --         gitignore_treatmente = 'symbol' -- can be 'hidden' or 'symbol'
+            --     }
+            -- },
             sort_by = "case_sensitive",
             view = {
                 side = "right",
