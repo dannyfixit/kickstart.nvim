@@ -1,46 +1,11 @@
---[[
 
-=====================================================================
-==================== READ THIS BEFORE CONTINUING ====================
-=====================================================================
-
-Kickstart.nvim is *not* a distribution.
-
-Kickstart.nvim is a template for your own configuration.
-  The goal is that you can read every line of code, top-to-bottom, and understand
-  what your configuration is doing.
-
-  Once you've done that, you should start exploring, configuring and tinkering to
-  explore Neovim!
-
-  If you don't know anything about Lua, I recommend taking some time to read through
-  a guide. One possible example:
-  - https://learnxinyminutes.com/docs/lua/
-
-  And then you can explore or search through `:help lua-guide`
-
-
-Kickstart Guide:
-
-I have left several `:help X` comments throughout the init.lua
-You should run that command and read that help section for more information.
-
-In addition, I have some `NOTE:` items throughout the file.
-These are for you, the reader to help understand what is happening. Feel free to delete
-them once you know what you're doing, but they should serve as a guide for when you
-are first encountering a few different constructs in your nvim config.
-
-I hope you enjoy your Neovim journey,
-- TJ
-
-P.S. You can delete this when you're done too. It's your config now :)
---]]
 
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+
 
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
@@ -66,12 +31,6 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: First, some plugins that don't require any configuration
 
-  -- 'vimwiki/vimwiki',
-  -- Git related plugins
-  --  'tpope/vim-fugitive',
-
-  -- Detect tabstop and shiftwidth automatically
-  --  'tpope/vim-sleuth',
 
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
@@ -103,33 +62,11 @@ require('lazy').setup({
     opts = {
       -- See `:help gitsigns.txt`
       signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
-      },
-    },
-  },
-
-  { -- Theme inspired by Atom
-    'navarasu/onedark.nvim',
-    priority = 1000,
-    config = function()
-      vim.cmd.colorscheme 'onedark'
-     -- vim.g.onedark_config.setup true
-    end,
-  },
-
-  { -- Set lualine as statusline
-    'nvim-lualine/lualine.nvim',
-    -- See `:help lualine.txt`
-    opts = {
-      options = {
-        icons_enabled = false,
-        theme = 'onedark',
-        component_separators = '|',
-        section_separators = '',
+        add = { text = '+', guibg='NONE' },
+        change = { text = '', guibg='NONE' },
+        delete = { text = '', guibg='NONE' },
+        topdelete = { text = '‾', guibg='NONE' },
+        changedelete = { text = '~', guibg='NONE' },
       },
     },
   },
@@ -146,9 +83,6 @@ require('lazy').setup({
 
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
-
-  -- Fuzzy Finder (files, lsp, etc)
-  { 'nvim-telescope/telescope.nvim', version = '*', dependencies = { 'nvim-lua/plenary.nvim' } },
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built.
   -- Only load if `make` is available. Make sure you have the system
@@ -188,11 +122,16 @@ require('lazy').setup({
   { import = 'custom.plugins' },
 }, {})
 
+vim.cmd([[highlight GitSignsAdd guibg=none]])
+vim.cmd([[highlight GitSignsChange guibg=none]])
+vim.cmd([[highlight GitSignsDelete guibg=none]])
+vim.cmd([[highlight WinBar guibg=none]])
+
 -- [[ Setting options ]]
 -- See `:help vim.o`
 
 -- Set highlight on search
-vim.o.hlsearch = false
+vim.o.hlsearch = true
 
 -- Make line numbers default
 vim.wo.number = true
@@ -227,7 +166,7 @@ vim.o.timeoutlen = 300
 vim.o.completeopt = 'menuone,noselect'
 
 -- NOTE: You should make sure your terminal supports this
-vim.o.termguicolors = true
+-- vim.o.termguicolors = true
 
 -- [[ Basic Keymaps ]]
 
@@ -265,23 +204,6 @@ require('telescope').setup {
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
-
--- See `:help telescope.builtin`
-vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
-vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
-vim.keymap.set('n', '<leader>/', function()
-  -- You can pass additional configuration to telescope to change theme, layout, etc.
-  require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-    winblend = 10,
-    previewer = false,
-  })
-end, { desc = '[/] Fuzzily search in current buffer' })
-
-vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
-vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
-vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
-vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
-vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -376,11 +298,11 @@ local on_attach = function(_, bufnr)
   nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
   nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-  nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
   nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
   nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
   nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
   nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+  nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
@@ -444,7 +366,7 @@ mason_lspconfig.setup_handlers {
   end,
 }
 
--- nvim-cmp setup
+-- nvim-cmp setup - comletion engion
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
 
@@ -490,15 +412,38 @@ cmp.setup {
 }
 
 
-vim.g.vimwiki_list = {{path = '/var/www/wiki/documents'}}
-vim.g.vimwiki_ext = '.md'
-vim.g.vimwiki_global_ext = 0
+
+-- local wiki = {}
+-- wiki.path_html = '/var/www/wiki/documents'
+-- wiki.syntax = 'markdown'
+-- wiki.ext = '.md'
+-- vim.g.vimwiki_list = {wiki}
+-- vim.g.vim
+
+-- let vim.g.vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
+-- local wiki_1 = {}
+--       wiki_1.path = '/var/www/wiki1'
+--       wiki_1.syntax = 'markdown'
+--       wiki_1.ext = '.md'
+--       wiki_1.path_html = '/var/www/wiki/documents'
+
+--  vim.g.vimwiki_list = {wiki_1}
+
+
+-- vim.g.vimwiki_list = {{path = '/var/www/wiki/documents'}}
+-- vim.g.vimwiki_ext = '.md'
+-- vim.g.vimwiki_global_ext = 0
 
    local wiki = {}
     wiki.path = '/var/www/wiki/documents'
     wiki.syntax = 'markdown'
     wiki.ext = '.md'
     vim.g.vimwiki_list = {wiki}
+
+-- vim.cmd([[
+
+-- let g:vimwiki_list = [{'path_html': '/var/www/wiki/documents'}]
+-- ]])
 
 -- disable netrw at the very start of your init.lua (strongly advised)
 vim.g.loaded_netrw = 1
@@ -520,6 +465,8 @@ vim.opt.termguicolors = true
  --   dotfiles = true,
  -- },
 --})
+--    require'telescope'.extensions.projects.projects{}
 
+require('nvim-tmux-navigation')
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

@@ -9,9 +9,12 @@ return {
                 'Conditional', 'Repeat', 'Operator', 'Structure', 'LineNr', 'NonText',
                 'SignColumn', 'CursorLineNr', 'EndOfBuffer',
             },
-            extra_groups = {}, -- table: additional groups that should be cleared
+            extra_groups = {
+                "NormalFloat", -- plugins which have float panel such as Lazy, Mason, LspInfo
+                "NvimTreeNormal" -- NvimTree
+            }, -- table: additional groups that should be cleared
             exclude_groups = {}, -- table: groups you don't want to clear
         })
-       -- call :TransparentEnable()
+        -- call :TransparentEnable()
     end
 }

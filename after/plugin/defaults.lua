@@ -22,3 +22,16 @@ vim.keymap.set('n', '{', '{zz')
 
 vim.keymap.set('i', 'jj', '<Esc>')
 vim.keymap.set('n', '<leader>ss', ':setlocal spell spelllang=en_gb<CR>')
+
+
+require('nvim-tmux-navigation')
+vim.g.tmux_navigator_no_mappings = 1
+
+vim.keymap.set('n',  "<A-h>", ":NvimTmuxNavigateLeft<CR>")
+vim.keymap.set('n', "<A-j>", ":NvimTmuxNavigateDown<CR>")
+vim.keymap.set('n', "<A-k>", ":NvimTmuxNavigateUp<CR>")
+vim.keymap.set('n', "<A-l>", ":NvimTmuxNavigateRight<CR>")
+vim.keymap.set('n', "<A-\\>", ":NvimTmuxNavigateLastActive<CR>")
+vim.keymap.set('n', "<A-Space>", ":NvimTmuxNavigateNext<CR>")
+
+vim.keymap.set('n', "<C-p>", ":Telescope projects<CR>")
