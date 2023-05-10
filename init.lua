@@ -3,11 +3,9 @@
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 
-vim.g.mapleader = ' '
+vim.g.mapleader      = ' '
 vim.g.maplocalleader = ' '
 
-
--- Install package manager
 -- https://github.com/folke/lazy.nvim `:help lazy.nvim.txt` for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 
@@ -17,7 +15,7 @@ if not vim.loop.fs_stat(lazypath) then
     'clone',
     '--filter=blob:none',
     'https://github.com/folke/lazy.nvim.git',
-    '--branch=stable', -- latest stable release
+    '--branch=stable', 
     lazypath,
   }
 end
@@ -28,38 +26,6 @@ require('lazy').setup({
 
   -- NOTE: First, some plugins that don't require any configuration
   --  The configuration is done below. Search for lspconfig to find it below.
-
-
-  { -- LSP Configuration & Plugins
-    'neovim/nvim-lspconfig',
-    dependencies = {
-      -- Automatically install LSPs to stdpath for neovim
-      { 'williamboman/mason.nvim', config = true },
-      'williamboman/mason-lspconfig.nvim',
-
-      -- Useful status updates for LSP
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
-
-      -- Additional lua configuration, makes nvim stuff amazing!
-      'folke/neodev.nvim',
-    },
-  },
-
-  -- Adds git releated signs to the gutter, as well as utilities for managing changes
-  { 
-    'lewis6991/gitsigns.nvim',
-    opts = {
-      -- See `:help gitsigns.txt`
-      signs = {
-        add = { text = '+', guibg='NONE' },
-        change = { text = '', guibg='NONE' },
-        delete = { text = '', guibg='NONE' },
-        topdelete = { text = '‾', guibg='NONE' },
-        changedelete = { text = '~', guibg='NONE' },
-      },
-    },
-  },
 
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
@@ -96,35 +62,22 @@ vim.cmd([[highlight WinBar guibg=none]])
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
--- vim.cmd.colorscheme 'onedark'
-vim.cmd.colorscheme 'gruvbox'
 
--- Set highlight on search
-vim.o.hlsearch = true
+vim.cmd.colorscheme 'gruvbox' -- vim.cmd.colorscheme 'onedark'
+vim.o.hlsearch    = true -- Set highlight on search
+vim.wo.number     = true -- Make line numbers default
+vim.o.mouse       = 'a' -- Enable mouse mode
+vim.o.clipboard   = 'unnamedplus' --  See `:help 'clipboard'` --  Remove this option if you want your OS clipboard to remain independent.
+vim.o.breakindent = true -- Enable break indent
+vim.o.undofile    = true -- Save undo history
 
--- Make line numbers default
-vim.wo.number = true
-
--- Enable mouse mode
-vim.o.mouse = 'a'
-
--- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
-vim.o.clipboard = 'unnamedplus'
-
--- Enable break indent
-vim.o.breakindent = true
-
--- Save undo history
-vim.o.undofile = true
 
 -- Case insensitive searching UNLESS /C or capital in search
 vim.o.ignorecase = true
-vim.o.smartcase = true
+vim.o.smartcase  = true
 
--- Keep signcolumn on by default
-vim.wo.signcolumn = 'yes'
+vim.wo.signcolumn = 'yes' -- Keep signcolumn on by default
+
 
 -- Decrease update time
 vim.o.updatetime = 250
@@ -265,7 +218,6 @@ local on_attach = function(_, bufnr)
 
   nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
   nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
-
   nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
   nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
   nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
@@ -273,8 +225,7 @@ local on_attach = function(_, bufnr)
   nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 
-  -- See `:help K` for why this keymap
-  nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+  nmap('K', vim.lsp.buf.hover, 'Hover Documentation')   -- See `:help K` for why this keymap
   nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
@@ -336,7 +287,7 @@ mason_lspconfig.setup_handlers {
 }
 
 -- nvim-cmp setup - comletion engion
-local cmp = require 'cmp'
+local cmp     = require 'cmp'
 local luasnip = require 'luasnip'
 
 luasnip.config.setup {}

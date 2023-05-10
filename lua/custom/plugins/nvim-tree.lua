@@ -29,9 +29,12 @@ return {
     config = function()
         vim.g.loaded_netrw = 1
         vim.g.loaded_netrwPlugin = 1
+        vim.g.update_cwd          = false
+
+
 
         vim.g.nvim_tree_respect_buf_cwd = 1
-
+        vim.g.sync_root_with_cwd = 1
         -- set termguicolors to enable highlight groups
         vim.opt.termguicolors = true
         -- empty setup using defaults
