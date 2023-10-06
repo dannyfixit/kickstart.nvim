@@ -7,11 +7,15 @@ return { -- LSP Configuration & Plugins
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      -- { 'j-hui/fidget.nvim', branch = 'legacy' },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
-    },
+       config = function()
+      require 'plugins.congig.lspconfig'
+      require 'custom.congig.lspconfig'
+      end,
+    }
   }
 
 

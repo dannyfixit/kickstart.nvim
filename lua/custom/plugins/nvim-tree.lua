@@ -18,13 +18,6 @@
 
 return {
     'nvim-tree/nvim-tree.lua',
-    requires = {
-        'nvim-tree/nvim-web-devicons', -- optional, for file icon,
-    },
-    opts = {
-
-
-    },
     tag = 'nightly', -- optional, updated every week. (see issue #1193)
     config = function()
         vim.g.loaded_netrw = 1
@@ -39,7 +32,7 @@ return {
         vim.opt.termguicolors = true
         -- empty setup using defaults
         -- require("nvim-tree").setup()
-
+--        require("nvim-tree/nvim-web-devicons")
         -- OR setup with some options
         require("nvim-tree").setup({
             renderer = {

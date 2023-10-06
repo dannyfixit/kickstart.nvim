@@ -1,12 +1,9 @@
 
--- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
-
 vim.g.mapleader      = ' '
 vim.g.maplocalleader = ' '
 
--- https://github.com/folke/lazy.nvim `:help lazy.nvim.txt` for more info
+vim.g.backspace='indent,eol,start'
+
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 
 if not vim.loop.fs_stat(lazypath) then
@@ -131,7 +128,7 @@ pcall(require('telescope').load_extension, 'fzf')
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'lua', 'python', 'rust', 'tsx', 'typescript', 'help', 'vim', 'php' },
+  ensure_installed = { 'c', 'cpp', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vim', 'php' },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = true,
@@ -263,7 +260,7 @@ local servers = {
 }
 
 -- Setup neovim lua configuration
-require('neodev').setup()
+-- require('neodev').setup()
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -331,7 +328,28 @@ cmp.setup {
   },
 }
 
-
+require'lspconfig'.lua_ls.setup {
+   settings = {
+     Lua = {
+       runtime = {
+         -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+         version = 'LuaJIT',
+       },
+       diagnostics = {
+         -- Get the language server to recognize the `vim` global
+         globals = {'vim'},
+       },
+       workspace = {
+         -- Make the server aware of Neovim runtime files
+         library = vim.api.nvim_get_runtime_file("", true),
+       },
+       -- Do not send telemetry data containing a randomized but unique identifier
+       telemetry = {
+         enable = false,
+       },
+     },
+   },
+ }
 
 -- local wiki = {}
 -- wiki.path_html = '/var/www/wiki/documents'
