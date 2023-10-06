@@ -35,6 +35,10 @@ vim.keymap.set('n', "<A-\\>", ":NvimTmuxNavigateLastActive<CR>")
 vim.keymap.set('n', "<A-Space>", ":NvimTmuxNavigateNext<CR>")
 
 vim.keymap.set('n', "<C-p>", ":Telescope projects<CR>")
+
 vim.keymap.set('n', "<Leader>ff", ":Telescope find_files<CR>")
 vim.keymap.set('n', "<Leader>fu", ":Telescope buffers<CR>")
+
+vim.keymap.set('n', "<Leader>pp", ":TagbarToggle<CR>")
+vim.keymap.set('n', "<Leader>go", ":vs | te python %<CR>")
 

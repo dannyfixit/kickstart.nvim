@@ -12,7 +12,7 @@ if not vim.loop.fs_stat(lazypath) then
     'clone',
     '--filter=blob:none',
     'https://github.com/folke/lazy.nvim.git',
-    '--branch=stable', 
+    '--branch=stable',
     lazypath,
   }
 end
@@ -72,7 +72,6 @@ vim.o.undofile    = true -- Save undo history
 -- Case insensitive searching UNLESS /C or capital in search
 vim.o.ignorecase = true
 vim.o.smartcase  = true
-
 vim.wo.signcolumn = 'yes' -- Keep signcolumn on by default
 
 
@@ -400,6 +399,11 @@ vim.opt.termguicolors = true
  -- },
 --})
 --    require'telescope'.extensions.projects.projects{}
+
+-- Probebly need to look into this and apply it after
+-- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+-- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+
 
 require('nvim-tmux-navigation')
 -- The line beneath this is called `modeline`. See `:help modeline`
