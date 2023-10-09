@@ -1,10 +1,10 @@
 vim.g.mapleader      = ' '
 vim.g.maplocalleader = ' '
 
-vim.g.backspace='indent,eol,start'
+vim.g.backspace      = 'indent,eol,start'
 
 -- bootstrap lazy plugin manager
-local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
+local lazypath       = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system {
@@ -20,28 +20,10 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-
-  -- NOTE: First, some plugins that don't require any configuration
-  --  The configuration is done below. Search for lspconfig to find it below.
-
-
-  -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
-  --       These are some example plugins that I've included in the kickstart repository.
-  --       Uncomment any of the lines below to enable them.
-  -- require 'kickstart.plugins.autoformat',
-  -- require 'kickstart.plugins.debug',
-
-  -- NOTE: The import below automatically adds your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
-  --    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
-  --    up-to-date with whatever is in the kickstart repo.
-  --
-  --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-  --
-  --    An additional note is that if you only copied in the `init.lua`, you can just comment this line
-  --    to get rid of the warning telling you that there are not plugins in `lua/custom/plugins/`.
-
+  require 'kickstart.plugins.autoformat',
+  require 'kickstart.plugins.debug',
   { import = 'custom.plugins' },
- -- { import = 'custom.plugins.lsp' },
+  -- { import = 'custom.plugins.lsp' },
 }, {})
 
 vim.cmd([[highlight GitSignsAdd guibg=none]])
@@ -50,47 +32,34 @@ vim.cmd([[highlight GitSignsDelete guibg=none]])
 vim.cmd([[highlight WinBar guibg=none]])
 
 
--- require("onedark").setup({
---  transparent = true,
--- }) 
--- local theme = require("lualine.themes.tokyonight")
--- theme.normal.c.bg = nil
-
--- lvim.builtin.lualine.options.theme = theme
-
--- [[ Setting options ]]
--- See `:help vim.o`
-
-vim.cmd.colorscheme 'gruvbox' -- vim.cmd.colorscheme 'onedark'
-vim.o.hlsearch    = true -- Set highlight on search
-vim.wo.number     = true -- Make line numbers default
-vim.o.mouse       = 'a' -- Enable mouse mode
-vim.o.clipboard   = 'unnamedplus' --  See `:help 'clipboard'` --  Remove this option if you want your OS clipboard to remain independent.
-vim.o.breakindent = true -- Enable break indent
-vim.o.undofile    = true -- Save undo history
-
+-- [[ Setting options ]] -- See `:help vim.o`
+vim.cmd.colorscheme 'gruvbox'       -- vim.cmd.colorscheme 'onedark'
+vim.wo.number       = true          -- Make line numbers default
+vim.wo.signcolumn   = 'yes'         -- Keep signcolumn on by default
+vim.o.hlsearch      = true          -- Set highlight on search
+vim.o.mouse         = 'a'           -- Enable mouse mode
+vim.o.clipboard     = 'unnamedplus' --  See `:help 'clipboard'`
+vim.o.breakindent   = true          -- Enable break indent
+vim.o.undofile      = true          -- Save undo history
 
 -- Case insensitive searching UNLESS /C or capital in search
-vim.o.ignorecase = true
-vim.o.smartcase  = true
-vim.wo.signcolumn = 'yes' -- Keep signcolumn on by default
-
+vim.o.ignorecase    = true
+vim.o.smartcase     = true
 
 -- Decrease update time
-vim.o.updatetime = 250
-vim.o.timeout = true
-vim.o.timeoutlen = 300
+vim.o.updatetime    = 250
+vim.o.timeout       = true
+vim.o.timeoutlen    = 300
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
+vim.o.completeopt   = 'menuone,noselect'
 
 -- NOTE: You should make sure your terminal supports this
--- vim.o.termguicolors = true
+vim.o.termguicolors = true
 
 -- [[ Basic Keymaps ]]
 
 -- Keymaps for better default experience
--- See `:help vim.keymap.set()`
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- Remap for dealing with word wrap
@@ -110,16 +79,16 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
-require('telescope').setup {
-  defaults = {
-    mappings = {
-      i = {
-        ['<C-u>'] = false,
-        ['<C-d>'] = false,
-      },
-    },
-  },
-}
+-- require('telescope').setup {
+--   defaults = {
+--     mappings = {
+--       i = {
+--         ['<C-u>'] = false,
+--         ['<C-d>'] = false,
+--       },
+--     },
+--   },
+-- }
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
@@ -222,7 +191,7 @@ local on_attach = function(_, bufnr)
   nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 
-  nmap('K', vim.lsp.buf.hover, 'Hover Documentation')   -- See `:help K` for why this keymap
+  nmap('K', vim.lsp.buf.hover, 'Hover Documentation') -- See `:help K` for why this keymap
   nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
@@ -328,28 +297,28 @@ cmp.setup {
   },
 }
 
-require'lspconfig'.lua_ls.setup {
-   settings = {
-     Lua = {
-       runtime = {
-         -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-         version = 'LuaJIT',
-       },
-       diagnostics = {
-         -- Get the language server to recognize the `vim` global
-         globals = {'vim'},
-       },
-       workspace = {
-         -- Make the server aware of Neovim runtime files
-         library = vim.api.nvim_get_runtime_file("", true),
-       },
-       -- Do not send telemetry data containing a randomized but unique identifier
-       telemetry = {
-         enable = false,
-       },
-     },
-   },
- }
+require 'lspconfig'.lua_ls.setup {
+  settings = {
+    Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = { 'vim' },
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+}
 
 -- local wiki = {}
 -- wiki.path_html = '/var/www/wiki/documents'
@@ -372,11 +341,11 @@ require'lspconfig'.lua_ls.setup {
 -- vim.g.vimwiki_ext = '.md'
 -- vim.g.vimwiki_global_ext = 0
 
-   -- local wiki = {}
-   --  wiki.path = '/var/www/wiki/documents'
-   --  wiki.syntax = 'markdown'
-   --  wiki.ext = '.md'
-   --  vim.g.vimwiki_list = {wiki}
+-- local wiki = {}
+--  wiki.path = '/var/www/wiki/documents'
+--  wiki.syntax = 'markdown'
+--  wiki.ext = '.md'
+--  vim.g.vimwiki_list = {wiki}
 
 
 -- disable netrw at the very start of your init.lua (strongly advised)
@@ -394,10 +363,10 @@ vim.opt.termguicolors = true
 --  sort_by = "case_sensitive",
 --  renderer = {
 --    group_empty = true,
- -- },
- -- filters = {
- --   dotfiles = true,
- -- },
+-- },
+-- filters = {
+--   dotfiles = true,
+-- },
 --})
 --    require'telescope'.extensions.projects.projects{}
 
