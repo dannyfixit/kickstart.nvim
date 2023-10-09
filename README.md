@@ -45,7 +45,8 @@ You can also merge updates/changes from the repo back into your fork, to keep up
 
 In the file: `lua/custom/plugins/autopairs.lua`, add:
 
-```lua
+``` 
+-- lua
 -- File: lua/custom/plugins/autopairs.lua
 
 return {
@@ -63,7 +64,8 @@ This will automatically install `nvim-autopairs` and enable it on startup. For m
 
 In the file: `lua/custom/plugins/filetree.lua`, add:
 
-```lua
+```
+-- lua
 -- Unless you are still migrating, remove the deprecated commands from v1.x
 vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 
@@ -87,7 +89,8 @@ This will install the tree plugin and add the command `:Neotree` for you. You ca
 
 To change default options, you can add a file in the `/after/plugin/` folder (see `:help load-plugins`) to include your own options, keymaps, autogroups, and more. The following is an example `defaults.lua` file (located at `$HOME/.config/nvim/after/plugin/defaults.lua`).
 
-```lua
+``` 
+-- lua
 vim.opt.relativenumber = true
 
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
@@ -124,7 +127,8 @@ This requires:
 
 - Install CMake, and the Microsoft C++ Build Tools on Windows
 
-```lua
+```
+-- lua
 {'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
 ```
 
