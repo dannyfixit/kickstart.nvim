@@ -1,9 +1,9 @@
-
 vim.g.mapleader      = ' '
 vim.g.maplocalleader = ' '
 
 vim.g.backspace='indent,eol,start'
 
+-- bootstrap lazy plugin manager
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 
 if not vim.loop.fs_stat(lazypath) then
@@ -41,6 +41,7 @@ require('lazy').setup({
   --    to get rid of the warning telling you that there are not plugins in `lua/custom/plugins/`.
 
   { import = 'custom.plugins' },
+ -- { import = 'custom.plugins.lsp' },
 }, {})
 
 vim.cmd([[highlight GitSignsAdd guibg=none]])
