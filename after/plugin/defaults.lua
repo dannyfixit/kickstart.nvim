@@ -24,8 +24,8 @@ vim.keymap.set('i', 'jj', '<Esc>')
 vim.keymap.set('n', '<leader>ss', ':setlocal spell spelllang=en_gb<CR>')
 
 
-require('nvim-tmux-navigation')
-vim.g.tmux_navigator_no_mappings = 1
+-- require('nvim-tmux-navigation')
+-- vim.g.tmux_navigator_no_mappings = 1
 
 vim.keymap.set('n',  "<A-h>", ":NvimTmuxNavigateLeft<CR>")
 vim.keymap.set('n', "<A-j>", ":NvimTmuxNavigateDown<CR>")
