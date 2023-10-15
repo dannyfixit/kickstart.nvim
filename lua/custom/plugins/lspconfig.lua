@@ -1,21 +1,21 @@
 return { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
-      -- Automatically install LSPs to stdpath for neovim
-      { 'williamboman/mason.nvim', config = true },
-      'williamboman/mason-lspconfig.nvim',
+        -- Automatically install LSPs to stdpath for neovim
+        { 'williamboman/mason.nvim', config = true },
+        'williamboman/mason-lspconfig.nvim',
 
-      -- Useful status updates for LSP
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      -- { 'j-hui/fidget.nvim', branch = 'legacy' },
+        -- Useful status updates for LSP
+        -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
+        -- { 'j-hui/fidget.nvim', branch = 'legacy' },
 
-      -- Additional lua configuration, makes nvim stuff amazing!
-      'folke/neodev.nvim',
-       config = function()
-      require 'plugins.congig.lspconfig'
-      require 'custom.congig.lspconfig'
-      end,
+        -- Additional lua configuration, makes nvim stuff amazing!
+        'folke/neodev.nvim',
+        config = function()
+            -- require 'plugins.congig.lspconfig'
+            -- require 'custom.congig.lspconfig'
+        end,
     }
-  }
+}
 
 
