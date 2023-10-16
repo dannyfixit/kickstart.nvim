@@ -23,6 +23,9 @@ require('lazy').setup({
   require 'kickstart.plugins.autoformat',
   require 'kickstart.plugins.debug',
   { import = 'custom.plugins' },
+  -- Useful plugin to show you pending keybinds.
+  { 'folke/which-key.nvim',   opts = {} },
+
   -- { import = 'custom.plugins.lsp' },
 }, {})
 
@@ -144,6 +147,13 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
+
+
+-- mason-lspconfig requires that these setup functions are called in this order
+-- before setting up the servers.
+require('mason').setup()
+require('mason-lspconfig').setup()
+
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
 --
@@ -160,7 +170,7 @@ local servers = {
     Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
-    diagnostics = {
+      diagnostics = {
         globals = {
           'vim',
           'require'
@@ -170,17 +180,16 @@ local servers = {
   },
   intelephense = {
     diagnostics = {
-      completionItem = {
-        snippetSupport = true,
-        resolveProvider = true,
-      },
       undefinedProperties = false,
-    }
-  },
+    },
+    completionItem = {
+      snippetSupport = true,
+      resolveProvider = true,
+    },
+  }
 }
 
--- Setup neovim lua configuration
--- require('neodev').setup()
+require('neodev').setup()
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -199,14 +208,21 @@ mason_lspconfig.setup_handlers {
       capabilities = capabilities,
       on_attach = on_attach,
       settings = servers[server_name],
+      filetypes = (servers[server_name] or {}).filetypes,
     }
   end,
 }
 
+
+
+
+
+
+
 -- nvim-cmp setup - comletion engion
 local cmp     = require 'cmp'
 local luasnip = require 'luasnip'
-
+require('luasnip.loaders.from_vscode').lazy_load()
 luasnip.config.setup {}
 
 cmp.setup {
@@ -249,55 +265,16 @@ cmp.setup {
 }
 
 
--- local wiki = {}
--- wiki.path_html = '/var/www/wiki/documents'
--- wiki.syntax = 'markdown'
--- wiki.ext = '.md'
--- vim.g.vimwiki_list = {wiki}
--- vim.g.vim
-
--- let vim.g.vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
--- local wiki_1 = {}
---       wiki_1.path = '/var/www/wiki1'
---       wiki_1.syntax = 'markdown'
---       wiki_1.ext = '.md'
---       wiki_1.path_html = '/var/www/wiki/documents'
-
---  vim.g.vimwiki_list = {wiki_1}
 
 
--- vim.g.vimwiki_list = {{path = '/var/www/wiki/documents'}}
--- vim.g.vimwiki_ext = '.md'
--- vim.g.vimwiki_global_ext = 0
-
--- local wiki = {}
---  wiki.path = '/var/www/wiki/documents'
---  wiki.syntax = 'markdown'
---  wiki.ext = '.md'
---  vim.g.vimwiki_list = {wiki}
 
 
 -- disable netrw at the very start of your init.lua (strongly advised)
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
--- set termguicolors to enable highlight groups
-vim.opt.termguicolors = true
 
--- empty setup using defaults
--- require("nvim-tree").setup()
-
--- OR setup with some options
---require("nvim-tree").setup({
---  sort_by = "case_sensitive",
---  renderer = {
---    group_empty = true,
--- },
--- filters = {
---   dotfiles = true,
--- },
---})
---    require'telescope'.extensions.projects.projects{}
+-- require'telescope'.extensions.projects.projects{}
 
 -- Probebly need to look into this and apply it after
 -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
@@ -305,5 +282,6 @@ vim.opt.termguicolors = true
 
 
 require('nvim-tmux-navigation')
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

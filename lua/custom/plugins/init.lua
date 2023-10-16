@@ -14,17 +14,6 @@
 -- set up clipboard
 vim.o.relativenumber = true
 
--- wiki setup
---vim.g.vimwiki_list = {
---    {
---        -- WikiLocal
---        path_html = '/var/www/wiki/documents',
---        path = '/var/www/wiki/documents',
---        syntax    = 'markdown',
---        ext       = '.md',
---    }
---}
-
 
 
 
