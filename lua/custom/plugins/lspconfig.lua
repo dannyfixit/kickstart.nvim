@@ -1,4 +1,5 @@
-return { -- LSP Configuration & Plugins
+return {
+         -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     lazy = false,
     dependencies = {
@@ -50,5 +51,3 @@ return { -- LSP Configuration & Plugins
   }
 
 }
-
-
