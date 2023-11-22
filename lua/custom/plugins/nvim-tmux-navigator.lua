@@ -1,6 +1,8 @@
 return {
      "alexghergh/nvim-tmux-navigation",
   config = function ()
+
+    require('nvim-tmux-navigation')
     vim.g.tmux_navigator_no_mappings = 1
 
         vim.keymap.set({'n','v'},  "<a-h>", "NvimTmuxNavigateLeft<CR>")

@@ -16,8 +16,8 @@ return {
                 },
             },
         }
-        require('telescope').load_extension('projects')
-        require("telescope").load_extension("live_grep_args")
+        -- require('telescope').load_extension('projects')
+        -- require("telescope").load_extension("live_grep_args")
 
 
 
@@ -27,7 +27,7 @@ return {
         -- See `:help telescope.builtin`
 
         vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find old files' })
-        vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find buffers' })
+     --   vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find buffers' })
         vim.keymap.set('n', '<leader>/', require('telescope.builtin').current_buffer_fuzzy_find,
             { desc = '[/] Fuzzily search in current buffer' })
         vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
@@ -40,5 +40,9 @@ return {
 
         -- vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
         --  vim.keymap.set("n", "<leader>f", require('telescope.extensions').live_grep_args.live_grep_args())
+	-- Enable telescope fzf native, if installed
+	pcall(require('telescope').load_extension, 'fzf')
+
+
     end
 }

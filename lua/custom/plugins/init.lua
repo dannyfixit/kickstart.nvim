@@ -16,8 +16,6 @@ vim.o.relativenumber = true
 
 
 
-
-
 -- return {}
 
 
@@ -42,29 +40,33 @@ opt.mouse         = 'a'                         -- Enable mouse support
 -- opt.clipboard = 'unnamedplus'         -- Copy/paste to system clipboard
 opt.swapfile      = false                       -- Don't use swapfile
 opt.dir           = '/tmp'
-opt.completeopt   = 'menuone,noinsert,noselect' -- Autocomplete options
+opt.completeopt = { "menu", "noinsert", "menuone", "noselect" } -- Set completeopt to have a better completion experience
+
+
 
 -----------------------------------------------------------
 -- Neovim UI
 -----------------------------------------------------------
-opt.number        = true     -- Show line number
-opt.showmatch     = true     -- Highlight matching parenthesis
-opt.foldmethod    = 'marker' -- Enable folding (default 'foldmarker')
-opt.splitright    = true     -- Vertical split to the right
-opt.splitbelow    = true     -- Horizontal split to the bottom
-opt.ignorecase    = true     -- Ignore case letters when search
-opt.smartcase     = true     -- Ignore lowercase for the whole pattern
-opt.linebreak     = true     -- Wrap on word boundary
-opt.termguicolors = true     -- Enable 24-bit RGB colors
-opt.laststatus    = 3        -- Set global statusline
+-- opt.number        = true     -- Show line number
+-- opt.showmatch     = true     -- Highlight matching parenthesis
+-- opt.foldmethod    = 'marker' -- Enable folding (default 'foldmarker')
+-- opt.splitright    = true     -- Vertical split to the right
+-- opt.splitbelow    = true     -- Horizontal split to the bottom
+-- opt.ignorecase    = true     -- Ignore case letters when search
+-- opt.smartcase     = true     -- Ignore lowercase for the whole pattern
+-- opt.linebreak     = true     -- Wrap on word boundary
+-- opt.termguicolors = true     -- Enable 24-bit RGB colors
+-- opt.laststatus    = 3        -- Set global statusline
 
 -----------------------------------------------------------
 -- Tabs, indent
 -----------------------------------------------------------
 opt.expandtab     = true -- Use spaces instead of tabs
-opt.shiftwidth    = 4    -- Shift 4 spaces when tab
+opt.shiftwidth    = 4    -- Shift 4 spaces when tab (for indentation)
 opt.tabstop       = 4    -- 1 tab == 4 spaces
 opt.smartindent   = true -- Autoindent new lines
+opt.softtabstop   = 4    -- 
+opt.wrap          = false -- 
 
 -----------------------------------------------------------
 -- Memory, CPU

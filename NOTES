@@ -1,0 +1,60 @@
+commentary
+- Comments out lines (toggle)
+devicons
+- Neded for nvin-tree
+fidget
+- this provides a nice alret system for lsp's
+gitsigns
+- Git decorations
+gruvebox
+- theme
+harpoon
+- dur...
+indent-blankline
+- Adds guide lines for indents
+live_grep
+- telescope greping  
+lspconfig
+- !!!!!!!!!!!!!!!!!!!!!!!!!! :-)
+lualine
+- nice ui line
+nvim-cmp
+- !!!!!!!!!!!!!!!!!!!!!!!!!! :-)
+nvim-tmux-navigator
+- useful for movign between vim and tmux
+nvim-tree
+- nive file tree a=add (finish with a / to make it a file) d=deleate c=copy p=past
+nvim-treesitter
+- !!!!!!!!!!!!!!!!!!!!!!!!!1 :-)
+project
+- jump to project (dont use it much yet)
+ruhbarb
+- git stuff...
+rust-vim
+- dose lots of rust set up (might conflict with masin and lsp stuff)
+sql
+-
+surround
+- yss" so suround line
+tagbar
+- not workign needs additional plugin
+telescope-fzf-native
+- awsome
+telescope
+- awsome
+transparent
+- works pretty well but confusing
+vim-begood
+- game, shoulf remove
+vim-fugitive
+- git plugin
+vim-sleuth
+- mah, messes with tab and shift width per file
+vimwiki
+- wiki, need to get it working again
+which-key
+- vaughely iritating info pop up
+wilder
+
+
+init

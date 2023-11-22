@@ -1,3 +1,28 @@
+
+-- [[ Basic Keymaps ]] ----------------------------------------------
+
+-- Keymaps for better default experience
+vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+
+-- Remap for dealing with word wrap
+vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
+
+-- Diagnostic keymaps
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
+
+
+
+-- vmap <C-y> ygv
+vim.keymap.set('v', '<C-y>', 'ygv')
+
+vim.keymap.set('n', '<leader>jj', ':%!jq .<CR>')
+
+
 -- edit init.lua
 vim.keymap.set('n', '<Leader>ei', ":tabnew ~/.config/nvim/init.lua<cr>") -- edit init.lua file in new tab
 -- center page 
@@ -20,7 +45,6 @@ vim.keymap.set('n', '<C-f>', '<C-f>zz<CR>')
 vim.keymap.set('n', '}', '}zz')
 vim.keymap.set('n', '{', '{zz')
 
-vim.keymap.set('i', 'jj', '<Esc>')
 vim.keymap.set('n', '<leader>ss', ':setlocal spell spelllang=en_gb<CR>')
 
 
@@ -41,4 +65,6 @@ vim.keymap.set('n', "<Leader>fu", ":Telescope buffers<CR>")
 
 vim.keymap.set('n', "<Leader>pp", ":TagbarToggle<CR>")
 vim.keymap.set('n', "<Leader>go", ":vs | te python %<CR>")
+
+
 

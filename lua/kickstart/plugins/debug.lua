@@ -17,15 +17,28 @@ return {
     -- Installs the debug adapters for you
     'williamboman/mason.nvim',
     'jay-babu/mason-nvim-dap.nvim',
+    'nvim-treesitter/nvim-treesitter',
 
     -- Add your own debuggers here
     'leoluz/nvim-dap-go',
+    'mxsdev/nvim-dap-vscode-js',
   },
   config = function()
-    local dap = require 'dap'
-    local dapui = require 'dapui'
 
+
+    local dap = require('dap')
+    local dapui = require('dapui')
+
+
+
+    -- mason-lspconfig requires that these setup functions are called in this order
+    -- before setting up the servers.
+    require('mason').setup()
+    require('mason-lspconfig').setup()
+    require("nvim-dap-virtual-text").setup()
+    require('jay-babu/mason-nvim-dap.nvim').setup()
     require('mason-nvim-dap').setup {
+
       -- Makes a best effort to setup the various debuggers with
       -- reasonable debug configurations
       automatic_setup = true,
@@ -43,15 +56,43 @@ return {
       },
     }
 
+
+    -- dap.adapters.php = {
+    --   type = "executable",
+    --   command = "node",
+    --   args = { os.getenv("HOME") .. "/build/vscode-php-debug/out/phpDebug.js" }
+    -- }
+
     -- Basic debugging keymaps, feel free to change to your liking!
     vim.keymap.set('n', '<F5>', dap.continue)
     vim.keymap.set('n', '<F1>', dap.step_into)
     vim.keymap.set('n', '<F2>', dap.step_over)
     vim.keymap.set('n', '<F3>', dap.step_out)
-    vim.keymap.set('n', '<leader>b', dap.toggle_breakpoint)
-    vim.keymap.set('n', '<leader>B', function()
-      dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
-    end)
+    vim.keymap.set('n', '<leader>1', dap.toggle_breakpoint())
+
+    dap.adapters.php = {
+      type = "executable",
+      command = "php",
+      args = { os.getenv("HOME") .. "/build/vscode-php-debug/out/phpDebug.js" }
+    }
+
+    dap.configurations.php = {
+    -- {
+      type = "php",
+      request = "launch",
+      name = "Listen for Xdebug",
+      port = 9003,
+      pathMappings = {
+        ["/var/www/html"] = "${workspaceFolder}"
+      }
+    -- }
+    }
+
+
+    --vim.keymap.set('n', '<leader><leader>', ":lua print('brake')")
+   -- vim.keymap.set('n', '<leader>B', function()
+   --   dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+   -- end)
 
     -- Dap UI setup
     -- For more information, see |:help nvim-dap-ui|

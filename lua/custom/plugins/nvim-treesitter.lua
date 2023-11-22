@@ -1,10 +1,12 @@
 -- Highlight, edit, and navigate code
 return {
     'nvim-treesitter/nvim-treesitter',
-    build = ":TSUpdate",
+    build = ":TSUpdate,TSConfig",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
+
         local treesitter = require("nvim-treesitter.configs")
+        ---@diagnostic disable-next-line missing-fields      
         treesitter.setup({
 
             -- Add languages to be installed here that you want installed for treesitter
@@ -48,8 +50,10 @@ return {
 
             },
             move = {
+
                 enable = true,
                 set_jumps = true, -- whether to set jumps in the jumplist
+
                 goto_next_start = {
                     [']m'] = '@function.outer',
                     [']]'] = '@class.outer',
@@ -66,8 +70,10 @@ return {
                     ['[M'] = '@function.outer',
                     ['[]'] = '@class.outer',
                 },
+
             },
             incremental_selection = {
+
                 enable = true,
                 keymals = {
                     init_selection = "<C-space>",
@@ -77,6 +83,7 @@ return {
                     -- scope_incremental = '<c-s>',
                     -- node_decremental = '<M-space>',
                 }
+
             },
             textobjects = {
                 select = {

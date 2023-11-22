@@ -41,6 +41,7 @@ return {
 
         -- Only attach to clients that support document formatting
         if not client.server_capabilities.documentFormattingProvider then
+	  print('nope')	
           return
         end
 
