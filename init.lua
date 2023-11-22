@@ -406,6 +406,33 @@ require('nvim-treesitter.configs').setup {
 
 
 
+        local ui   = require("harpoon.ui")
+
+        vim.keymap.set("n", "<leader>ha", require("harpoon.mark").add_file, {silent = true, noremap = true})
+        vim.keymap.set("n", "<a-Right>", ui.nav_next, {silent = true, noremap = true})
+
+        vim.keymap.set("n", "<a-1>", function()
+          ui.nav_file(1)
+        end, {silent = true, noremap = true})
+
+        vim.keymap.set("n", "<a-2>", function()
+          ui.nav_file(2)
+        end, {silent = true, noremap = true})
+
+        vim.keymap.set("n", "<a-3>", function()
+          ui.nav_file(3)
+        end, {silent = true, noremap = true})
+
+        vim.keymap.set("n", "<a-4>", function()
+          ui.nav_file(4)
+        end, {silent = true, noremap = true})
+
+        vim.keymap.set("n", "<a-5>", function()
+          ui.nav_file(5)
+        end, {silent = true, noremap = true})
+
+
+        vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu, {silent = true, noremap = true})
 
 
 
