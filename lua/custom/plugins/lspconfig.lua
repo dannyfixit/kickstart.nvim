@@ -32,6 +32,7 @@ return {
 	on_attach = function(_, bufnr)
 
 	-- LSP settings.
+	  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = bufnr, desc = 'LSP: [G]oto [D]eclaration'})
 	  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { buffer = bufnr, desc = 'LSP: [G]oto [D]eclaration'})
 	  vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, { buffer = bufnr, desc = 'LSP: [W]orkspace [A]dd Folder'})
 	  vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, { buffer = bufnr, desc = 'LSP: [W]orkspace [R]emove Folder'})

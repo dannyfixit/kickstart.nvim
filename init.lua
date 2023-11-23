@@ -40,7 +40,8 @@ require('lazy').setup({
   'tpope/vim-fugitive', -- git plugin
   'tpope/vim-rhubarb',
   'tpope/vim-sleuth',   -- Detect tabstop and shiftwidth automatically
-
+  'mbbill/undotree',    -- power undo
+  'nvim-treesitter/nvim-treesitter-context', -- sticky funcitons and classes
 
   {
     -- LSP Configuration & Plugins
@@ -401,14 +402,32 @@ require('nvim-treesitter.configs').setup {
 
 
 
+        vim.keymap.set('n', '<leader><F5>', vim.cmd.UndotreeToggle)
+
+        vim.fn.has("persistent_undo")
+        vim.o.undodir = '/tmp'
+        vim.o.undolevels=10000
+        vim.bo.undofile=true
 
 
-
-
+        require('treesitter-context').setup{
+          enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+          max_lines = 4, -- How many lines the window should span. Values <= 0 mean no limit.
+          min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+          line_numbers = true,
+          multiline_threshold = 20, -- Maximum number of lines to show for a single context
+          trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
+          mode = 'cursor',  -- Line used to calculate context. Choices: 'cursor', 'topline'
+          -- Separator between context and content. Should be a single character string, like '-'.
+          -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
+          separator = nil,
+          zindex = 20, -- The Z-index of the context window
+          on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
+        }
 
         local ui   = require("harpoon.ui")
 
-        vim.keymap.set("n", "<leader>ha", require("harpoon.mark").add_file, {silent = true, noremap = true})
+        vim.keymap.set("n", "<a-a>", require("harpoon.mark").add_file, {silent = true, noremap = true})
         vim.keymap.set("n", "<a-Right>", ui.nav_next, {silent = true, noremap = true})
 
         vim.keymap.set("n", "<a-1>", function()
@@ -432,7 +451,7 @@ require('nvim-treesitter.configs').setup {
         end, {silent = true, noremap = true})
 
 
-        vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu, {silent = true, noremap = true})
+        vim.keymap.set("n", "<C-h>", ui.toggle_quick_menu, {silent = true, noremap = true})
 
 
 
