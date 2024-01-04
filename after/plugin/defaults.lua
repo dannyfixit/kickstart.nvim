@@ -67,4 +67,10 @@ vim.keymap.set('n', "<Leader>pp", ":TagbarToggle<CR>")
 vim.keymap.set('n', "<Leader>go", ":vs | te python %<CR>")
 
 
+vim.api.nvim_set_keymap("n", "<leader>dt", ":lua require('dapui').toggle()<CR>", {noremap=true})
 
+-- Basic debugging keymaps, feel free to change to your liking!
+vim.keymap.set('n', '<F5>', 'DapContinue<CR>', {noremap=true})
+vim.keymap.set('n', '<F1>', 'DapStepInto<CR>', {noremap=true})
+vim.keymap.set('n', '<F2>', 'DapStepOver', {noremap=true})
+vim.keymap.set('n', '<F3>', 'DapStepOut', {noremap=true})

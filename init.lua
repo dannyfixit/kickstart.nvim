@@ -1,6 +1,3 @@
-
-
-
 require("config.fix_go_find")
 require("config.globals")
 require("config.options")
@@ -11,7 +8,7 @@ local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 
 local lazyopts = {
   install = {
-    colorscheme = { "gruvbox" },     -- try to load colorschemes when starting an installation during startup
+    colorscheme = { "gruvbox" }, -- try to load colorschemes when starting an installation during startup
   },
 }
 
@@ -31,30 +28,56 @@ vim.opt.rtp:prepend(lazypath)
 -- ----------------------------------------------------------------
 
 require('lazy').setup({
-  -- require 'kickstart.plugins.autoformat',
   { 'nvim-lua/plenary.nvim' }, -- lua lib of useful funciton
+
+  {
+    'rcarriga/nvim-dap-ui',
+    dependencies = { 'mfussenegger/nvim-dap' }
+  },
+  { 'theHamsta/nvim-dap-virtual-text' },
+  { "jay-babu/mason-nvim-dap.nvim" },
+  
+  { 'jbyuki/one-small-step-for-vimkind' },
   { 'kickstart.plugins.debug' },
+  { 'nvim-telescope/telescope-dap.nvim' },
+  { 'simrat39/symbols-outline.nvim' },
+  {
+    'alexghergh/nvim-tmux-navigation',
+    config = function()
+      local nvim_tmux_nav = require('nvim-tmux-navigation')
+
+      nvim_tmux_nav.setup {
+        disable_when_zoomed = true -- defaults to false
+      }
+
+      vim.keymap.set('n', "<C-h>", nvim_tmux_nav.NvimTmuxNavigateLeft)
+      vim.keymap.set('n', "<C-j>", nvim_tmux_nav.NvimTmuxNavigateDown)
+      vim.keymap.set('n', "<C-k>", nvim_tmux_nav.NvimTmuxNavigateUp)
+      vim.keymap.set('n', "<C-l>", nvim_tmux_nav.NvimTmuxNavigateRight)
+      vim.keymap.set('n', "<C-\\>", nvim_tmux_nav.NvimTmuxNavigateLastActive)
+      vim.keymap.set('n', "<C-Space>", nvim_tmux_nav.NvimTmuxNavigateNext)
+    end
+  },
   -- { import = 'kickstart.plugins.lsp' },
   -- { import = 'custom.plugins' },
-
-  'tpope/vim-fugitive', -- git plugin
+  'tpope/vim-fugitive',                      -- git plugin
   'tpope/vim-rhubarb',
-  'tpope/vim-sleuth',   -- Detect tabstop and shiftwidth automatically
-  'mbbill/undotree',    -- power undo
+  'tpope/vim-sleuth',                        -- Detect tabstop and shiftwidth automatically
+  'mbbill/undotree',                         -- power undo
   'nvim-treesitter/nvim-treesitter-context', -- sticky funcitons and classes
   {
-  "folke/noice.nvim",
-  event = "VeryLazy",
-  opts = {
-    -- add any options here
-  },
-  dependencies = {
-    -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-    "MunifTanjim/nui.nvim",
-    -- OPTIONAL:
-    --   `nvim-notify` is only needed, if you want to use the notification view.
-    --   If not available, we use `mini` as the fallback
-    "rcarriga/nvim-notify",
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {
+      -- add any options here
+    },
+    dependencies = {
+      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+      "MunifTanjim/nui.nvim",
+      -- OPTIONAL:
+      --   `nvim-notify` is only needed, if you want to use the notification view.
+      --   If not available, we use `mini` as the fallback
+      "rcarriga/nvim-notify",
     }
   },
   {
@@ -78,7 +101,6 @@ require('lazy').setup({
   { import = 'custom.plugins.gruvebox' },
   --  { import = 'custom.plugins.nvim-cmp' },
   { import = 'custom.plugins.nvim-tree' },
-  { import = 'custom.plugins.nvim-tree' },
   { import = 'custom.plugins.telescope' },
   { import = 'custom.plugins.telescope-fzf-native' },
   { import = 'custom.plugins.commentary' },
@@ -88,6 +110,11 @@ require('lazy').setup({
   -- { import = 'custom.plugins.lspconfig' },
   { import = 'custom.plugins.lualine' },
   { import = 'custom.plugins.vim-cool' }, -- fixed search highlighing
+  {
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    opts = {},
+  },
   {
     -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
@@ -141,6 +168,24 @@ require('lazy').setup({
 vim.cmd([[highlight WinBar guibg=none]])
 
 
+require("noice").setup({
+  lsp = {
+    -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+    override = {
+      ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+      ["vim.lsp.util.stylize_markdown"] = true,
+      ["cmp.entry.get_documentation"] = true,
+    },
+  },
+  -- you can enable a preset for easier configuration
+  presets = {
+    bottom_search = true,         -- use a classic bottom cmdline for search
+    command_palette = true,       -- position the cmdline and popupmenu together
+    long_message_to_split = true, -- long messages will be sent to a split
+    inc_rename = false,           -- enables an input dialog for inc-rename.nvim
+    lsp_doc_border = false,       -- add a border to hover docs and signature help
+  },
+})
 
 
 -- [[ Highlight on yank ]] ----------------------------------------- See `:help vim.highlight.on_yank()`
@@ -158,30 +203,126 @@ pcall(require('telescope').load_extension, 'fzf')
 
 
 
+require("neodev").setup({
+  library = { plugins = { "nvim-dap-ui" }, types = true },
+  ...
+})
 
-
-
-
-
-require("noice").setup({
-  lsp = {
-    -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-    override = {
-      ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-      ["vim.lsp.util.stylize_markdown"] = true,
-      ["cmp.entry.get_documentation"] = true,
-    },
+require('dapui').setup({
+  controls = {
+    element = "repl",
+    enabled = true,
+    icons = {
+      disconnect = "",
+      pause = "",
+      play = "",
+      run_last = "",
+      step_back = "",
+      step_into = "",
+      step_out = "",
+      step_over = "",
+      terminate = ""
+    }
   },
-  -- you can enable a preset for easier configuration
-  presets = {
-    bottom_search = true, -- use a classic bottom cmdline for search
-    command_palette = true, -- position the cmdline and popupmenu together
-    long_message_to_split = true, -- long messages will be sent to a split
-    inc_rename = false, -- enables an input dialog for inc-rename.nvim
-    lsp_doc_border = false, -- add a border to hover docs and signature help
+  element_mappings = {},
+  expand_lines = true,
+  floating = {
+    border = "single",
+    mappings = {
+      close = { "q", "<Esc>" }
+    }
+  },
+  force_buffers = true,
+  icons = {
+    collapsed = "",
+    current_frame = "",
+    expanded = ""
+  },
+  layouts = { {
+    elements = { {
+      id = "scopes",
+      size = 0.25
+    }, {
+      id = "breakpoints",
+      size = 0.25
+    }, {
+      id = "stacks",
+      size = 0.25
+    }, {
+      id = "watches",
+      size = 0.25
+    } },
+    position = "left",
+    size = 40
+  }, {
+    elements = { {
+      id = "repl",
+      size = 0.5
+    }, {
+      id = "console",
+      size = 0.5
+    } },
+    position = "bottom",
+    size = 10
+  } },
+  mappings = {
+    edit = "e",
+    expand = { "<CR>", "<2-LeftMouse>" },
+    open = "o",
+    remove = "d",
+    repl = "r",
+    toggle = "t"
+  },
+  render = {
+    indent = 1,
+    max_value_lines = 100
   },
 })
 
+require('nvim-dap-virtual-text').setup({})
+
+
+require('mason-nvim-dap').setup {
+
+
+  -- Makes a best effort to setup the various debuggers with
+  -- reasonable debug configurations
+  automatic_setup = true,
+  automatic_installation = true,
+  -- You can provide additional configuration to the handlers,
+  -- see mason-nvim-dap README for more information
+  handlers = {},
+
+  -- You'll need to check that you have the required things installed
+  -- online, please don't ask me how to install them :)
+  ensure_installed = {
+    -- Update this to ensure that you have the debuggers for the langs you want
+    --'delve',
+    'php'
+  },
+}
+
+local dap = require('dap')
+-- local dapui = require('dapui')
+
+
+dap.adapters.php = {
+  type = "executable",
+  command = "node",
+  args = { "/home/peachy/Documents/cmd/vscode-php-debug/out/phpDebug.js" }
+}
+
+dap.configurations.php = {
+  {
+    type = "php",
+    request = "launch",
+    name = "Listen for Xdebug",
+    port = 9003,
+    pathMappings = {
+      ["/var/www/html"] = "${workspaceFolder}"
+    }
+  }
+}
 
 
 
@@ -194,77 +335,76 @@ require("noice").setup({
 -- See `:help nvim-treesitter`
 -- Defer Treesitter setup after first render to improve startup time of 'nvim {filename}'
 vim.defer_fn(function()
-
-  ---@diagnostic disable-next-line missing-fields      
+  ---@diagnostic disable-next-line missing-fields
   require('nvim-treesitter.configs').setup {
-     -- Add languages to be installed here that you want installed for treesitter
-     ensure_installed = { 'php', 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
-     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-     auto_install = true,
-     highlight = { enable = true },
-     indent = { enable = true },
-     -- navigation = {
-     --    enable = true,
-     --    keymaps = {
-     --       goto_next_usage = "<leader>nn"
-     --    }
-     -- },
-     incremental_selection = {
-       enable = true,
-       keymaps = {
-         init_selection = '<c-space>',
-         node_incremental = '<c-space>',
-         scope_incremental = '<c-s>',
-         node_decremental = '<M-space>',
-       },
-     },
-     textobjects = {
-       select = {
-         enable = true,
-         lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-         keymaps = {
-           -- You can use the capture groups defined in textobjects.scm
-           ['aa'] = '@parameter.outer',
-           ['ia'] = '@parameter.inner',
-           ['af'] = '@function.outer',
-           ['if'] = '@function.inner',
-           ['ac'] = '@class.outer',
-           ['ic'] = '@class.inner',
-           ['ii'] = '@conditional.inner',
-           ['ai'] = '@conditional.outer',
-         },
-       },
-       move = {
-         enable = true,
-         set_jumps = true, -- whether to set jumps in the jumplist
-         goto_next_start = {
-           [']m'] = '@function.outer',
-           [']]'] = '@class.outer',
-         },
-         goto_next_end = {
-           [']M'] = '@function.outer',
-           [']['] = '@class.outer',
-         },
-         goto_previous_start = {
-           ['[m'] = '@function.outer',
-           ['[['] = '@class.outer',
-         },
-         goto_previous_end = {
-           ['[M'] = '@function.outer',
-           ['[]'] = '@class.outer',
-         },
-       },
-       swap = {
-         enable = true,
-         swap_next = {
-           ['<leader>a'] = '@parameter.inner',
-         },
-         swap_previous = {
-           ['<leader>A'] = '@parameter.inner',
-         },
-       },
-     },
-   }
+    -- Add languages to be installed here that you want installed for treesitter
+    ensure_installed = { 'php', 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
+    -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
+    auto_install = true,
+    highlight = { enable = true },
+    indent = { enable = true },
+    -- navigation = {
+    --    enable = true,
+    --    keymaps = {
+    --       goto_next_usage = "<leader>nn"
+    --    }
+    -- },
+    incremental_selection = {
+      enable = true,
+      keymaps = {
+        init_selection = '<c-space>',
+        node_incremental = '<c-space>',
+        scope_incremental = '<c-s>',
+        node_decremental = '<M-space>',
+      },
+    },
+    textobjects = {
+      select = {
+        enable = true,
+        lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+        keymaps = {
+          -- You can use the capture groups defined in textobjects.scm
+          ['aa'] = '@parameter.outer',
+          ['ia'] = '@parameter.inner',
+          ['af'] = '@function.outer',
+          ['if'] = '@function.inner',
+          ['ac'] = '@class.outer',
+          ['ic'] = '@class.inner',
+          ['ii'] = '@conditional.inner',
+          ['ai'] = '@conditional.outer',
+        },
+      },
+      move = {
+        enable = true,
+        set_jumps = true, -- whether to set jumps in the jumplist
+        goto_next_start = {
+          [']m'] = '@function.outer',
+          [']]'] = '@class.outer',
+        },
+        goto_next_end = {
+          [']M'] = '@function.outer',
+          [']['] = '@class.outer',
+        },
+        goto_previous_start = {
+          ['[m'] = '@function.outer',
+          ['[['] = '@class.outer',
+        },
+        goto_previous_end = {
+          ['[M'] = '@function.outer',
+          ['[]'] = '@class.outer',
+        },
+      },
+      swap = {
+        enable = true,
+        swap_next = {
+          ['<leader>a'] = '@parameter.inner',
+        },
+        swap_previous = {
+          ['<leader>A'] = '@parameter.inner',
+        },
+      },
+    },
+  }
 end, 0)
 
 
@@ -278,7 +418,6 @@ end, 0)
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
-
   -- NOTE: Remember that lua is a real programming language, and as such it is possible
   -- to define small helper and utility functions so you don't have to repeat yourself
   -- many times.
@@ -287,13 +426,11 @@ local on_attach = function(_, bufnr)
   -- for LSP related items. It sets the mode, buffer and description for us each time.
 
   local nmap = function(keys, func, desc)
-
     if desc then
       desc = 'LSP: ' .. desc
     end
 
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
-
   end
 
   nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
@@ -322,7 +459,6 @@ local on_attach = function(_, bufnr)
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
     vim.lsp.buf.format()
   end, { desc = 'Format current buffer with LSP' })
-
 end
 
 
@@ -370,13 +506,13 @@ mason_lspconfig.setup_handlers {
     }
   end,
 
-   ["pyright"] = function()
+  ["pyright"] = function()
     require('lspconfig')['pyright'].setup {
       on_attach = on_attach,
       capabilities = capabilities,
       settings = {}
     }
-   end,
+  end,
 
 
   ["intelephense"] = function()
@@ -413,7 +549,7 @@ mason_lspconfig.setup_handlers {
 
 
 
-  ---@diagnostic disable-next-line missing-fields      
+---@diagnostic disable-next-line missing-fields
 require('nvim-treesitter.configs').setup {
   rainbow = {
     enable = true,
@@ -429,58 +565,59 @@ require('nvim-treesitter.configs').setup {
 
 
 
-        vim.keymap.set('n', '<leader><F5>', vim.cmd.UndotreeToggle)
+vim.keymap.set('n', '<leader><F5>', vim.cmd.UndotreeToggle)
 
-        vim.fn.has("persistent_undo")
-        vim.o.undodir = '/tmp'
-        vim.o.undolevels=10000
-        vim.bo.undofile=true
-
-
-        require('treesitter-context').setup{
-          enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-          max_lines = 4, -- How many lines the window should span. Values <= 0 mean no limit.
-          min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
-          line_numbers = true,
-          multiline_threshold = 20, -- Maximum number of lines to show for a single context
-          trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-          mode = 'cursor',  -- Line used to calculate context. Choices: 'cursor', 'topline'
-          -- Separator between context and content. Should be a single character string, like '-'.
-          -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
-          separator = nil,
-          zindex = 20, -- The Z-index of the context window
-          on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
-        }
-
-        local ui   = require("harpoon.ui")
-
-        vim.keymap.set("n", "<a-a>", require("harpoon.mark").add_file, {silent = true, noremap = true})
-        vim.keymap.set("n", "<a-Right>", ui.nav_next, {silent = true, noremap = true})
-
-        vim.keymap.set("n", "<a-1>", function()
-          ui.nav_file(1)
-        end, {silent = true, noremap = true})
-
-        vim.keymap.set("n", "<a-2>", function()
-          ui.nav_file(2)
-        end, {silent = true, noremap = true})
-
-        vim.keymap.set("n", "<a-3>", function()
-          ui.nav_file(3)
-        end, {silent = true, noremap = true})
-
-        vim.keymap.set("n", "<a-4>", function()
-          ui.nav_file(4)
-        end, {silent = true, noremap = true})
-
-        vim.keymap.set("n", "<a-5>", function()
-          ui.nav_file(5)
-        end, {silent = true, noremap = true})
+vim.fn.has("persistent_undo")
+vim.o.undodir = '/tmp'
+vim.o.undolevels = 10000
+vim.bo.undofile = true
 
 
-        vim.keymap.set("n", "<C-h>", ui.toggle_quick_menu, {silent = true, noremap = true})
+require('treesitter-context').setup {
+  enable = true,            -- Enable this plugin (Can be enabled/disabled later via commands)
+  max_lines = 4,            -- How many lines the window should span. Values <= 0 mean no limit.
+  min_window_height = 0,    -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+  line_numbers = true,
+  multiline_threshold = 20, -- Maximum number of lines to show for a single context
+  trim_scope = 'outer',     -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
+  mode = 'cursor',          -- Line used to calculate context. Choices: 'cursor', 'topline'
+  -- Separator between context and content. Should be a single character string, like '-'.
+  -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
+  separator = nil,
+  zindex = 20,     -- The Z-index of the context window
+  on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
+}
+
+local ui = require("harpoon.ui")
+
+vim.keymap.set("n", "<a-a>", require("harpoon.mark").add_file, { silent = true, noremap = true })
+vim.keymap.set("n", "<a-Right>", ui.nav_next, { silent = true, noremap = true })
+
+vim.keymap.set("n", "<a-1>", function()
+  ui.nav_file(1)
+end, { silent = true, noremap = true })
+
+vim.keymap.set("n", "<a-2>", function()
+  ui.nav_file(2)
+end, { silent = true, noremap = true })
+
+vim.keymap.set("n", "<a-3>", function()
+  ui.nav_file(3)
+end, { silent = true, noremap = true })
+
+vim.keymap.set("n", "<a-4>", function()
+  ui.nav_file(4)
+end, { silent = true, noremap = true })
+
+vim.keymap.set("n", "<a-5>", function()
+  ui.nav_file(5)
+end, { silent = true, noremap = true })
 
 
+vim.keymap.set("n", "<leader>hh", ui.toggle_quick_menu, { silent = true, noremap = true })
+
+
+require("symbols-outline").setup()
 
 
 -- [[ Configure nvim-cmp ]]
@@ -500,8 +637,8 @@ cmp.setup {
   mapping = {
     ['<leader>n'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 'c' }),
     ['<CR>'] = cmp.mapping.confirm({ select = true }),
-   -- ['<Left>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 'c' }),
-   -- ['<Right>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 'c' }),
+    -- ['<Left>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 'c' }),
+    -- ['<Right>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 'c' }),
   },
   --mapping = cmp.mapping.preset.insert {
   --  --['<leader>n'] = cmp.mapping.select_next_item(),
@@ -539,6 +676,10 @@ cmp.setup {
   },
 }
 
+local registry = require("mason-registry")
+registry.refresh(function()
+  registry.get_package("htmlhint")
+end)
 
 
 

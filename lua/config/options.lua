@@ -15,7 +15,7 @@ opt.swapfile      = false                       -- Don't use swapfile
 opt.dir           = '/tmp'
 opt.completeopt    = "menu,noinsert,menuone,noselect"  -- Set completeopt to have a better completion experience
 
-
+opt.diffopt = 'vertical'
 
 -- [[ Setting options ]] -- See `:help vim.o`
 -- vim.cmd.colorscheme 'gruvbox'       -- vim.cmd.colorscheme 'onedark'
