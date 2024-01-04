@@ -87,7 +87,7 @@ require('lazy').setup({
   { import = 'custom.plugins.harpoon' },
   -- { import = 'custom.plugins.lspconfig' },
   { import = 'custom.plugins.lualine' },
-  { import = 'custom.plugins.vim-cool' },
+  { import = 'custom.plugins.vim-cool' }, -- fixed search highlighing
   {
     -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
@@ -132,10 +132,6 @@ require('lazy').setup({
   -- { import = 'custom.plugins.dressing' },
   -- { import = 'custom.plugins.live_grep' },
   -- { import = 'custom.plugins.indent-blankline' },
-
-  -- Useful plugin to show you pending keybinds.
-  -- { 'folke/which-key.nvim',             opts = {} },
-
   -- { import = 'custom.plugins.lsp' },
 }, lazyopts)
 
