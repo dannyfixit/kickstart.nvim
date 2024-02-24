@@ -4,8 +4,9 @@ return {
     lazy = false,
     dependencies = {
 
+         'williamboman/mason-lspconfig.nvim' ,
+        { 'folke/neodev.nvim' },                                   -- Additional lua configuration, makes nvim stuff amazing!
         { 'williamboman/mason.nvim', config = true }, -- Automatically install LSPs to stdpath for neovim
-        { 'williamboman/mason-lspconfig.nvim' },
 	{ 'hrsh7th/nvim-cmp' },
 	{
 	    'folke/neodev.nvim',             -- Additional lua configuration, makes nvim stuff amazing!

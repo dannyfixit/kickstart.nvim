@@ -48,6 +48,9 @@ require('lazy').setup({
   { import='custom.plugins.harpoon' },
   { import='custom.plugins.lualine' },
   { import='custom.plugins.vim-cool' },                        -- fixed search highlighing
+  { url="git@github.com:folke/neodev.nvim", opts = {} },
+  { url="git@github.com:williamboman/mason-lspconfig.nvim" },
+  { url="git@github.com:puremourning/vimspector" },
   { url="git@github.com:mattn/emmet-vim",
     ft = {
       "html", "css", "javascript", "typescript", "jsx", "tsx", "php"  -- Add more file types as needed
@@ -63,11 +66,11 @@ require('lazy').setup({
     name='plenary',  -- lua lib of useful funciton
     url='git@github.com:nvim-lua/plenary.nvim'
   },
-  {
-    url='git@github.com:rcarriga/nvim-dap-ui',
-    name='dap-ui',
-    dependencies={'mfussenegger/nvim-dap'}
-  },
+  -- {
+  --   url='git@github.com:rcarriga/nvim-dap-ui',
+  --   name='dap-ui',
+  --   dependencies={'mfussenegger/nvim-dap'}
+  -- },
   {
     url='git@github.com:theHamsta/nvim-dap-virtual-text',
     name='dap-virtual-text',
@@ -91,7 +94,7 @@ require('lazy').setup({
     end
   },
   { url='jbyuki/one-small-step-for-vimkind' },
-  { url='nvim-telescope/telescope-dap.nvim' },
+--  { url='nvim-telescope/telescope-dap.nvim' },
   { url='simrat39/symbols-outline.nvim',
     config = function()
         require("symbols-outline").setup()
@@ -119,29 +122,29 @@ require('lazy').setup({
   { url='tpope/vim-sleuth' },                                   -- Detect tabstop and shiftwidth automatically
   { url='mbbill/undotree' },                                    -- power undo
   { url='nvim-treesitter/nvim-treesitter-context' },            -- sticky funcitons and classes
-  {
-    url='neovim/nvim-lspconfig',                                -- LSP Configuration & Plugins
-    dependencies = {
-      'williamboman/mason-lspconfig.nvim',
-      'williamboman/mason.nvim',                                -- Automatically install LSPs to stdpath for neovim
-      'folke/neodev.nvim',                                      -- Additional lua configuration, makes nvim stuff amazing!
-      { url='j-hui/fidget.nvim', tag = 'legacy', opts = {} },   -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-    },
-  },
+  -- {
+  --   url='neovim/nvim-lspconfig',                                -- LSP Configuration & Plugins
+  --   dependencies = {
+  --     'williamboman/mason-lspconfig.nvim',
+  --     'williamboman/mason.nvim',                                -- Automatically install LSPs to stdpath for neovim
+  --     'folke/neodev.nvim',                                      -- Additional lua configuration, makes nvim stuff amazing!
+  --    -- { url='j-hui/fidget.nvim', tag = 'legacy', opts = {} },   -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
+  --   },
+  -- },
   {
     url="pmizio/typescript-tools.nvim",
     dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
     opts = {},
   },
-  {
-    url='neovim/nvim-lspconfig',                               -- LSP Configuration & Plugins
-    dependencies = {
-      'williamboman/mason-lspconfig.nvim',
-      'williamboman/mason.nvim',                               -- Automatically install LSPs to stdpath for neovim
-      'folke/neodev.nvim',                                     -- Additional lua configuration, makes nvim stuff amazing!
-      { url='j-hui/fidget.nvim', tag = 'legacy', opts = {} },  -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-    },
-  },
+  -- {
+  --   url='neovim/nvim-lspconfig',                               -- LSP Configuration & Plugins
+  --   dependencies = {
+  --     'williamboman/mason-lspconfig.nvim',
+  --     'williamboman/mason.nvim',                               -- Automatically install LSPs to stdpath for neovim
+  --     'folke/neodev.nvim',                                     -- Additional lua configuration, makes nvim stuff amazing!
+  --     { url='j-hui/fidget.nvim', tag = 'legacy', opts = {} },  -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
+  --   },
+  -- },
   {
     url='hrsh7th/nvim-cmp',                                     -- Autocompletion
     dependencies = {
@@ -157,13 +160,13 @@ require('lazy').setup({
     'rafamadriz/friendly-snippets'
     }
   },
-  {
-    url='nvim-treesitter/nvim-treesitter',                       -- Highlight, edit, and navigate code
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-    },
-    build = ':TSUpdate',
-  },
+  -- {
+  --   url='nvim-treesitter/nvim-treesitter',                       -- Highlight, edit, and navigate code
+  --   dependencies = {
+  --     'nvim-treesitter/nvim-treesitter-textobjects',
+  --   },
+  --   build = ':TSUpdate',
+  -- },
 
 }, lazyopts)
 
