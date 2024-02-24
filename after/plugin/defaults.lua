@@ -8,6 +8,8 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
@@ -74,3 +76,24 @@ vim.keymap.set('n', '<F5>', 'DapContinue<CR>', {noremap=true})
 vim.keymap.set('n', '<F1>', 'DapStepInto<CR>', {noremap=true})
 vim.keymap.set('n', '<F2>', 'DapStepOver', {noremap=true})
 vim.keymap.set('n', '<F3>', 'DapStepOut', {noremap=true})
+
+
+
+local harpoon = require("harpoon")
+
+harpoon:setup({})
+
+vim.keymap.set("n", "<leader>a", function() require("harpoon"):list():append() end)
+vim.keymap.set("n", "<leader>A", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+
+vim.keymap.set("n", "<C-1>", function() require('harpoon'):list():select(1) end)
+vim.keymap.set("n", "<C-1>", function() require('harpoon'):list():select(2) end)
+vim.keymap.set("n", "<C-3>", function() require('harpoon'):list():select(3) end)
+vim.keymap.set("n", "<C-4>", function() require('harpoon'):list():select(4) end)
+
+-- Toggle previous & next buffers stored within Harpoon list
+vim.keymap.set("n", "<C>=", function() require('harpoon'):list():prev() end)
+vim.keymap.set("n", "<C>-", function() require('harpoon'):list():next() end)
+
+
+

@@ -13,7 +13,7 @@ return {
 	'',
     },
     lazy = false,
-    on_attach = function(cmp)
+    on_attach = function()
 
 
 	-- [[ Configure nvim-cmp ]]
@@ -22,10 +22,13 @@ return {
 	require('luasnip.loaders.from_vscode').lazy_load()
 	luasnip.config.setup {}
 
+        local cmp     = require('cmp')
 	cmp.setup {
 	  snippet = {
 	    expand = function(args)
-	      luasnip.lsp_expand(args.body)
+	      require('luasnip').lsp_expand(args.body)
+
+	      -- luasnip.lsp_expand(args.body)
 	    end,
 	  },
 	  mapping = cmp.mapping.preset.insert {
