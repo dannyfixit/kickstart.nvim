@@ -154,12 +154,12 @@ require('lazy').setup({
       'rafamadriz/friendly-snippets',                           -- Adds a number of user-friendly snippets
     },
   },
-  {
-   url='L3MON4D3/LuaSnip',
-   dependencies = {
-    'rafamadriz/friendly-snippets'
-    }
-  },
+  -- {
+  --  url='L3MON4D3/LuaSnip',
+  --  dependencies = {
+  --   'rafamadriz/friendly-snippets'
+  --   }
+  -- },
   -- {
   --   url='nvim-treesitter/nvim-treesitter',                       -- Highlight, edit, and navigate code
   --   dependencies = {
