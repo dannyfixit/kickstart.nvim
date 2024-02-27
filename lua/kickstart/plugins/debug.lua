@@ -8,7 +8,7 @@
 
 return {
   -- NOTE: Yes, you can install new plugins here!
-  url='mfussenegger/nvim-dap',
+  'mfussenegger/nvim-dap',
   -- NOTE: And you can specify dependencies as well
   dependencies = {
     -- Creates a beautiful debugger UI

@@ -49,6 +49,7 @@ require('lazy').setup({
   { import='custom.plugins.lualine' },
   { import='custom.plugins.vim-cool' },                        -- fixed search highlighing
   { url="git@github.com:folke/neodev.nvim", opts = {} },
+
   { url="git@github.com:williamboman/mason-lspconfig.nvim" },
   { url="git@github.com:puremourning/vimspector" },
   { url="git@github.com:mattn/emmet-vim",
@@ -61,7 +62,7 @@ require('lazy').setup({
         vim.api.nvim_set_keymap('i', '<Tab>', '<Plug>(emmet-expand-abbr)', {silent = true})
     end
   }, 
-  { url='HiPhish/nvim-ts-rainbow2' }, -- lua lib of useful funciton
+  { 'HiPhish/nvim-ts-rainbow2' }, -- lua lib of useful funciton
   {
     name='plenary',  -- lua lib of useful funciton
     url='git@github.com:nvim-lua/plenary.nvim'
@@ -79,7 +80,7 @@ require('lazy').setup({
     end
   },
   {
-    url="jay-babu/mason-nvim-dap.nvim",
+    url="git@github.com:jay-babu/mason-nvim-dap.nvim",
     config = function()
 
       require('mason-nvim-dap').setup({
@@ -93,15 +94,15 @@ require('lazy').setup({
       })
     end
   },
-  { url='jbyuki/one-small-step-for-vimkind' },
+  { 'jbyuki/one-small-step-for-vimkind' },
 --  { url='nvim-telescope/telescope-dap.nvim' },
-  { url='simrat39/symbols-outline.nvim',
+  { 'simrat39/symbols-outline.nvim',
     config = function()
         require("symbols-outline").setup()
     end
   },
   {
-    url='alexghergh/nvim-tmux-navigation',
+    'alexghergh/nvim-tmux-navigation',
     config = function()
 
       local nvim_tmux_nav = require('nvim-tmux-navigation')
@@ -117,11 +118,11 @@ require('lazy').setup({
 
     end
   },
-  { url='tpope/vim-fugitive' },                                 -- git plugin
-  { url='tpope/vim-rhubarb' },
-  { url='tpope/vim-sleuth' },                                   -- Detect tabstop and shiftwidth automatically
-  { url='mbbill/undotree' },                                    -- power undo
-  { url='nvim-treesitter/nvim-treesitter-context' },            -- sticky funcitons and classes
+  { 'tpope/vim-fugitive' },                                 -- git plugin
+  { 'tpope/vim-rhubarb' },
+  { 'tpope/vim-sleuth' },                                   -- Detect tabstop and shiftwidth automatically
+  { 'mbbill/undotree' },                                    -- power undo
+  { 'nvim-treesitter/nvim-treesitter-context' },            -- sticky funcitons and classes
   -- {
   --   url='neovim/nvim-lspconfig',                                -- LSP Configuration & Plugins
   --   dependencies = {
@@ -132,7 +133,7 @@ require('lazy').setup({
   --   },
   -- },
   {
-    url="pmizio/typescript-tools.nvim",
+    "pmizio/typescript-tools.nvim",
     dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
     opts = {},
   },
@@ -146,7 +147,7 @@ require('lazy').setup({
   --   },
   -- },
   {
-    url='hrsh7th/nvim-cmp',                                     -- Autocompletion
+    'hrsh7th/nvim-cmp',                                     -- Autocompletion
     dependencies = {
       'L3MON4D3/LuaSnip',                                       -- Snippet Engine & its associated nvim-cmp source
       'saadparwaiz1/cmp_luasnip',
@@ -154,12 +155,12 @@ require('lazy').setup({
       'rafamadriz/friendly-snippets',                           -- Adds a number of user-friendly snippets
     },
   },
-  -- {
-  --  url='L3MON4D3/LuaSnip',
-  --  dependencies = {
-  --   'rafamadriz/friendly-snippets'
-  --   }
-  -- },
+  {
+   'L3MON4D3/LuaSnip',
+   dependencies = {
+    'rafamadriz/friendly-snippets'
+    }
+  },
   -- {
   --   url='nvim-treesitter/nvim-treesitter',                       -- Highlight, edit, and navigate code
   --   dependencies = {
