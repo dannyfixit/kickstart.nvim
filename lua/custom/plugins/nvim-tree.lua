@@ -21,7 +21,7 @@ return {
     'nvim-tree/nvim-tree.lua',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     -- dependencies = { 'custom.plugins.devicons' },
-    tag = 'nightly', -- optional, updated every week. (see issue #1193)
+    -- tag = 'nightly', -- optional, updated every week. (see issue #1193)
     config = function()
         vim.g.loaded_netrw = 1
         vim.g.loaded_netrwPlugin = 1
@@ -69,11 +69,11 @@ return {
             view = {
                 side = "right",
                 width = 40,
-                mappings = {
-                    list = {
-                        { key = "u", action = "dir_up" },
-                    },
-                },
+                -- mappings = {
+                --     list = {
+                --         { key = "u", action = "dir_up" },
+                --     },
+                -- },
             },
         })
 
