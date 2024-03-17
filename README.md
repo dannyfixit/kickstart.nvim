@@ -1,7 +1,3 @@
-
-### Introduction
-
-
 ### Installation
   - [ripgrep](https://github.com/BurntSushi/ripgrep#installation) is required for multiple [telescope](https://github.com/nvim-telescope/telescope.nvim#suggested-dependencies) pickers.
 

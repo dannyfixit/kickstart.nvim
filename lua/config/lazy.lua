@@ -48,8 +48,88 @@ require('lazy').setup({
   { import='custom.plugins.harpoon' },
   { import='custom.plugins.lualine' },
   { import='custom.plugins.vim-cool' },                        -- fixed search highlighing
+  -- {
+  --   url='git@github.com:Bekaboo/dropbar.nvim',
+  --   dependencies = {
+  --     'nvim-telescope/telescope-fzf-native.nvim'     -- optional, but required for fuzzy finder support
+  --   },
+  --   --  enabled = false,
+  --   event = { 'LspAttach' },
+  --   config = function()
+  --     require('dropbar').setup({
+  --       icons = {
+  --         kinds = {
+  --           symbols = {
+  --             Array = ' ',
+  --             Boolean = ' ',
+  --             BreakStatement = ' ',
+  --             Call = ' ',
+  --             CaseStatement = '󱃙 ',
+  --             Class = ' ',
+  --             Color = ' ',
+  --             Constant = ' ',
+  --             Constructor = ' ',
+  --             ContinueStatement = ' ',
+  --             Copilot = ' ',
+  --             Declaration = ' ',
+  --             Delete = ' ',
+  --             DoStatement = ' ',
+  --             Enum = ' ',
+  --             EnumMember = ' ',
+  --             Event = ' ',
+  --             Field = ' ',
+  --             File = ' ',
+  --             Folder = ' ',
+  --             ForStatement = ' ',
+  --             Function = ' ',
+  --             Identifier = '󰀫 ',
+  --             IfStatement = '󰇉 ',
+  --             Interface = ' ',
+  --             Keyword = ' ',
+  --             List = ' ',
+  --             Log = '󰦪 ',
+  --             Lsp = ' ',
+  --             Macro = '󰁌 ',
+  --             MarkdownH1 = '󰉫 ',
+  --             MarkdownH2 = '󰉬 ',
+  --             MarkdownH3 = '󰉭 ',
+  --             MarkdownH4 = '󰉮 ',
+  --             MarkdownH5 = '󰉯 ',
+  --             MarkdownH6 = '󰉰 ',
+  --             Method = ' ',
+  --             Module = ' ',
+  --             Namespace = ' ',
+  --             Null = '󰢤 ',
+  --             Number = '󰎠 ',
+  --             Object = ' ',
+  --             Operator = ' ',
+  --             Package = ' ',
+  --             Property = ' ',
+  --             Reference = ' ',
+  --             Regex = ' ',
+  --             Repeat = ' ',
+  --             Scope = ' ',
+  --             Snippet = ' ',
+  --             Specifier = '󰦪 ',
+  --             Statement = ' ',
+  --             String = ' ',
+  --             Struct = ' ',
+  --             SwitchStatement = '󰺟 ',
+  --             Terminal = ' ',
+  --             Text = ' ',
+  --             Type = ' ',
+  --             TypeParameter = ' ',
+  --             Unit = ' ',
+  --             Value = ' ',
+  --             Variable = ' ',
+  --             WhileStatement = ' ',
+  --           },
+  --         },
+  --       },
+  --     })
+  --   end,
+  -- },
   { url="git@github.com:folke/neodev.nvim", opts = {} },
-
   { url="git@github.com:williamboman/mason-lspconfig.nvim" },
   { url="git@github.com:puremourning/vimspector" },
   { url="git@github.com:mattn/emmet-vim",
@@ -159,7 +239,9 @@ require('lazy').setup({
    'L3MON4D3/LuaSnip',
    dependencies = {
     'rafamadriz/friendly-snippets'
-    }
+    },
+    build = "make install_jsregexp"
+
   },
   -- {
   --   url='nvim-treesitter/nvim-treesitter',                       -- Highlight, edit, and navigate code
