@@ -436,6 +436,10 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
 })
 
+ -- i need this on my desktop but not on my laptop, it makes the transparency work, i'll need to turn off plugins to diegnose, and dont have time right now
+vim.cmd('hi Normal guibg=NONE ctermbg=NONE')
+
+
 
 -- require('nvim-tmux-navigation')
 
