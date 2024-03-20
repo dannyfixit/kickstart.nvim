@@ -25,7 +25,7 @@ return {
     config = function()
         vim.g.loaded_netrw = 1
         vim.g.loaded_netrwPlugin = 1
-        vim.g.update_cwd          = false
+        vim.g.update_cwd = true
 
 
 
@@ -39,6 +39,11 @@ return {
         -- OR setup with some options
         require("nvim-tree").setup({
             -- auto_close = true,
+            update_focused_file = {
+                enable = true,
+                update_cwd = true,
+                ignore_list = {}
+            },
             renderer = {
                 group_empty = true,
             },
