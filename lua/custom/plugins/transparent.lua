@@ -3,6 +3,7 @@ return {
     'xiyaowong/transparent.nvim',
     config = function()
         require("transparent").setup({
+            -- enable = true, -- Enable transparency
             groups = { -- table: default groups
                 'Normal', 'NormalNC', 'Comment', 'Constant', 'Special', 'Identifier',
                 'Statement', 'PreProc', 'Type', 'Underlined', 'Todo', 'String', 'Function',
