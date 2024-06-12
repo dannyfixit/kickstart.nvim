@@ -1,9 +1,12 @@
 -- Highlight, edit, and navigate code
 return {
     'nvim-treesitter/nvim-treesitter',
-    build = ":TSUpdate,TSConfig",
+    -- build = ":TSUpdate,TSConfig",
+    build = ":TSUpdate",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
+
+        vim.defer_fn(function()
 
         local treesitter = require("nvim-treesitter.configs")
         ---@diagnostic disable-next-line missing-fields      
@@ -16,11 +19,11 @@ return {
             indent = { enable = true, disable = { 'python' }, enavle = true },
             additional_vim_regex_highlighting = false,
             auto_install = true,
-            ignore_install = false,
+            -- ignore_install = false,
             sync_install = true,
             -- Add languages to be installed here that you want installed for treesitter
             ensure_installed = {
-                "bash",
+                -- "bash",
                 "css",
                 "dockerfile",
                 "gitattributes",
@@ -43,7 +46,7 @@ return {
                 "vue",
                 -- "wasm",
                 "yaml",
-                'c',
+                -- 'c',
                 'cpp',
                 'tsx',
                 'vim',
@@ -110,6 +113,8 @@ return {
                 },
             },
         })
+
+        end, 0)
     end,
     dependencies = {
         'nvim-treesitter/nvim-treesitter-textobjects',

@@ -1,11 +1,3 @@
--- debug.lua
---
--- Shows how to use the DAP plugin to debug your code.
---
--- Primarily focused on configuring the debugger for Go, but can
--- be extended to other languages as well. That's why it's called
--- kickstart.nvim and not kitchen-sink.nvim ;)
-
 return {
   -- NOTE: Yes, you can install new plugins here!
   'mfussenegger/nvim-dap',
@@ -26,15 +18,11 @@ return {
   config = function()
 
 
-    local dap = require('dap')
-    local dapui = require('dapui')
-
-
 
     -- mason-lspconfig requires that these setup functions are called in this order
     -- before setting up the servers.
-    require('mason').setup()
-    require('mason-lspconfig').setup()
+    -- require('mason').setup()
+    -- require('mason-lspconfig').setup()
     -- require("nvim-dap-virtual-text").setup({})
 
 
@@ -44,6 +32,7 @@ return {
     --   args = { os.getenv("HOME") .. "/build/vscode-php-debug/out/phpDebug.js" }
     -- }
 
+   local dap = require('dap')
     -- Basic debugging keymaps, feel free to change to your liking!
     vim.keymap.set('n', '<F5>', dap.continue)
     vim.keymap.set('n', '<F1>', dap.step_into)
@@ -95,10 +84,19 @@ return {
         -- },
       -- },
     -- }
-
-    dap.listeners.after.event_initialized['dapui_config'] = dapui.open
-    dap.listeners.before.event_terminated['dapui_config'] = dapui.close
-    dap.listeners.before.event_exited['dapui_config'] = dapui.close
+    -- local dap, dapui = require("dap"), require("dapui")
+    -- dap.listeners.before.attach.dapui_config = function()
+    --   dapui.open()
+    -- end
+    -- dap.listeners.before.launch.dapui_config = function()
+    --   dapui.open()
+    -- end
+    -- dap.listeners.before.event_terminated.dapui_config = function()
+    --   dapui.close()
+    -- end
+    -- dap.listeners.before.event_exited.dapui_config = function()
+    --   dapui.close()
+    -- end
 
     -- Install golang specific config
     require('dap-go').setup()
