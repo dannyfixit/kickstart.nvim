@@ -107,6 +107,20 @@ return {
 
 
 
+        local function custom_on_publish_diagnostics(_, result, ctx, config)
+          local diagnostics = result.diagnostics
+          local filtered_diagnostics = {}
+
+          for _, diagnostic in ipairs(diagnostics) do
+            if not string.match(diagnostic.message, "Undefined variable") then
+              table.insert(filtered_diagnostics, diagnostic)
+            end
+          end
+
+          result.diagnostics = filtered_diagnostics
+          vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
+        end
+
         mason_lspconfig.setup_handlers {
 
 
@@ -127,12 +141,15 @@ return {
                 require('lspconfig')['phpactor'].setup {
 
                     on_attach = on_attach,
+                      handlers = {
+                        ["textDocument/publishDiagnostics"] = custom_on_publish_diagnostics
+                      }
                 }
             end,
             ["lua_ls"] = function()
                 require('lspconfig')['lua_ls'].setup {
                     on_attach = on_attach,
-                    -- capabilities = capabilities,
+                    capabilities = capabilities,
                     Lua = {
                         on_attach = on_attach,
                         workspace = { checkThirdParty = false },
@@ -151,7 +168,6 @@ return {
 
             ["pyright"] = function()
                 require('lspconfig')['pyright'].setup {
-                    -- on_attach = on_attach,
                     autoImportCompletion = true,
                     on_attach = function()
                         vim.keymap.set('n', '<leader>cf', vim.lsp.buf.format, { buffer = 0 }) -- think this dosent work
